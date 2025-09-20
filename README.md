@@ -328,9 +328,9 @@ docker exec texas-poker-nginx nginx -s reload
 
 ## 联系方式
 
-- **项目地址**：[GitHub Repository](https://github.com/your-username/texas-poker)
-- **问题反馈**：[Issues](https://github.com/your-username/texas-poker/issues)
-- **邮箱**：your-email@example.com
+- **项目地址**：[GitHub Repository](https://github.com/sh0TTvT/Texas-web)
+- **问题反馈**：[Issues](https://github.com/sh0TTvT/Texas-web/issues)
+- **邮箱**：shothollis@gmail.com
 
 ---
 
