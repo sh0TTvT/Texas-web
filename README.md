@@ -35,7 +35,7 @@
 
 ```bash
 # 1. 克隆项目
-git clone <repository-url>
+git clone https://github.com/sh0TTvT/Texas-web.git
 cd texas-poker
 
 # 2. 配置环境变量
