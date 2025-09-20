@@ -1,0 +1,502 @@
+// 全局样式和移动端响应式适配
+// 作用：定义全局CSS变量、响应式断点、移动端优化样式
+
+// 导入Quasar变量
+@import '~quasar/src/css/variables.sass';
+
+// ===== CSS变量定义 =====
+:root {
+  // 颜色主题
+  --primary-color: #1976d2;
+  --secondary-color: #26a69a;
+  --accent-color: #9c27b0;
+  --positive-color: #21ba45;
+  --negative-color: #c10015;
+  --info-color: #31ccec;
+  --warning-color: #f2c037;
+  
+  // 扑克桌颜色
+  --table-green: #2d5a27;
+  --table-border: #8b4513;
+  --card-shadow: rgba(0, 0, 0, 0.15);
+  
+  // 间距
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  // 字体大小
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-md: 1rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.25rem;
+  --font-2xl: 1.5rem;
+  --font-3xl: 2rem;
+  
+  // 圆角
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  
+  // 阴影
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.25);
+  
+  // 响应式断点
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1280px;
+  --breakpoint-xl: 1920px;
+}
+
+// ===== 全局重置样式 =====
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+// ===== 响应式断点Mixins =====
+@mixin mobile {
+  @media (max-width: #{var(--breakpoint-xs)}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{var(--breakpoint-sm)}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (max-width: #{var(--breakpoint-md)}) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: #{var(--breakpoint-lg)}) {
+    @content;
+  }
+}
+
+// ===== 移动端优化 =====
+
+// 触摸优化
+@include tablet {
+  // 增大触摸目标
+  .q-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .q-item {
+    min-height: 48px;
+  }
+  
+  .q-tab {
+    min-height: 48px;
+  }
+  
+  // 优化表单控件
+  .q-field__control {
+    min-height: 48px;
+  }
+  
+  .q-input .q-field__control {
+    min-height: 48px;
+  }
+}
+
+@include mobile {
+  // 更大的触摸目标
+  .q-btn {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  .q-item {
+    min-height: 52px;
+  }
+  
+  // 优化字体大小
+  body {
+    font-size: 14px;
+  }
+  
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  h4 { font-size: 1.125rem; }
+  h5 { font-size: 1rem; }
+  h6 { font-size: 0.875rem; }
+}
+
+// ===== 游戏相关移动端优化 =====
+
+// 扑克桌移动端适配
+.poker-table {
+  @include tablet {
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 300px;
+  }
+  
+  @include mobile {
+    min-height: 250px;
+    border-radius: 100px !important;
+  }
+}
+
+// 扑克牌移动端优化
+.poker-card {
+  @include tablet {
+    &.card-normal {
+      width: 50px !important;
+      height: 70px !important;
+    }
+  }
+  
+  @include mobile {
+    &.card-normal {
+      width: 40px !important;
+      height: 56px !important;
+    }
+    
+    &.card-large {
+      width: 60px !important;
+      height: 84px !important;
+    }
+  }
+}
+
+// 玩家座位移动端优化
+.player-seat {
+  @include tablet {
+    min-width: 100px !important;
+    
+    .occupied-seat {
+      min-width: 110px !important;
+      padding: 0.5rem !important;
+    }
+  }
+  
+  @include mobile {
+    min-width: 80px !important;
+    
+    .occupied-seat {
+      min-width: 90px !important;
+      padding: 0.375rem !important;
+    }
+    
+    .player-name {
+      font-size: 0.75rem !important;
+    }
+    
+    .player-chips {
+      font-size: 0.7rem !important;
+    }
+  }
+}
+
+// 操作按钮移动端优化
+.game-actions {
+  @include tablet {
+    padding: 0.75rem !important;
+    
+    .action-btn {
+      height: 44px !important;
+    }
+    
+    .quick-actions {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+  
+  @include mobile {
+    padding: 0.5rem !important;
+    
+    .action-btn {
+      height: 48px !important;
+      font-size: 0.875rem;
+    }
+    
+    .bet-actions {
+      flex-direction: column;
+      gap: 0.5rem;
+      
+      .raise-btn,
+      .allin-btn {
+        height: 44px !important;
+      }
+    }
+  }
+}
+
+// ===== 后台管理移动端优化 =====
+
+// 管理员侧边栏
+.q-drawer {
+  @include tablet {
+    .admin-header {
+      padding: 1rem 0.75rem !important;
+      
+      .brand-name {
+        font-size: 1rem !important;
+      }
+    }
+    
+    .menu-item {
+      margin: 0.125rem 0.25rem !important;
+      
+      .q-item__label {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
+
+// 统计卡片移动端优化
+.stats-grid {
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem;
+  }
+  
+  @include mobile {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem;
+  }
+}
+
+.stat-card {
+  @include mobile {
+    .stat-content {
+      flex-direction: column !important;
+      text-align: center;
+      gap: 0.75rem;
+    }
+    
+    .stat-value {
+      font-size: 1.5rem !important;
+    }
+  }
+}
+
+// ===== 通用工具类 =====
+
+// 显示/隐藏工具类
+.mobile-only {
+  display: none;
+  
+  @include tablet {
+    display: block;
+  }
+}
+
+.desktop-only {
+  display: block;
+  
+  @include tablet {
+    display: none;
+  }
+}
+
+.mobile-flex {
+  @include tablet {
+    display: flex !important;
+  }
+}
+
+.mobile-grid {
+  @include tablet {
+    display: grid !important;
+  }
+}
+
+// 间距工具类
+.p-mobile {
+  @include mobile {
+    padding: var(--spacing-sm) !important;
+  }
+}
+
+.m-mobile {
+  @include mobile {
+    margin: var(--spacing-sm) !important;
+  }
+}
+
+.gap-mobile {
+  @include mobile {
+    gap: var(--spacing-sm) !important;
+  }
+}
+
+// 文字大小工具类
+.text-mobile-sm {
+  @include mobile {
+    font-size: var(--font-sm) !important;
+  }
+}
+
+.text-mobile-xs {
+  @include mobile {
+    font-size: var(--font-xs) !important;
+  }
+}
+
+// ===== 动画优化 =====
+
+// 减少移动端动画
+@include mobile {
+  .poker-card {
+    transition: transform 0.2s ease !important;
+  }
+  
+  .player-seat {
+    transition: none !important;
+  }
+  
+  .stat-card {
+    transition: none !important;
+    
+    &:hover {
+      transform: none !important;
+    }
+  }
+}
+
+// ===== 滚动优化 =====
+
+// 平滑滚动
+html {
+  scroll-behavior: smooth;
+}
+
+// 自定义滚动条（仅桌面端）
+@media (min-width: #{var(--breakpoint-sm)}) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+    
+    &:hover {
+      background: #a8a8a8;
+    }
+  }
+}
+
+// ===== 可访问性优化 =====
+
+// 焦点样式
+.q-btn:focus,
+.q-input:focus,
+.q-select:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+// 高对比度支持
+@media (prefers-contrast: high) {
+  :root {
+    --card-shadow: rgba(0, 0, 0, 0.5);
+  }
+  
+  .poker-card {
+    border: 2px solid #000;
+  }
+}
+
+// 减少动画（用户偏好）
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// ===== 打印样式 =====
+@media print {
+  .q-header,
+  .q-drawer,
+  .q-footer,
+  .game-actions,
+  .q-btn {
+    display: none !important;
+  }
+  
+  .poker-table {
+    background: white !important;
+    box-shadow: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+// ===== 性能优化 =====
+
+// GPU加速优化
+.poker-card,
+.player-seat,
+.game-actions {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+// 图片优化
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// ===== 兼容性修复 =====
+
+// iOS Safari 修复
+@supports (-webkit-overflow-scrolling: touch) {
+  .q-page {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+// Android Chrome 修复
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .q-btn {
+    -webkit-appearance: none;
+  }
+} 
